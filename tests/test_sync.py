@@ -22,8 +22,7 @@ def test_TPM():
         model_name=model_name,
         RPM=3_000,  # we will ignore this by setting a high value, we will make another test to test this.
         TPM=1_125,  # 1_125 = 225 * 5
-        redis_host="localhost",
-        redis_port=6379,
+        redis_url="redis://localhost:6379",
     )
     chatlimiter.clear_locks()
     with Executor(max_workers=1) as executor:

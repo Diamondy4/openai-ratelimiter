@@ -76,8 +76,7 @@ class AsyncBaseAPILimiterRedis:
         model_name: str,
         RPM: int,
         TPM: int,
-        redis_host: str = "localhost",
-        redis_port: int = 6379,
+        redis_url: str = "redis://localhost:6379",
     ):
         """
         Initializer for the BaseAPILimiterRedis class.
@@ -88,8 +87,7 @@ class AsyncBaseAPILimiterRedis:
                        OpenAI account at https://platform.openai.com/account/rate-limits
             TPM (int): The maximum number of tokens per minute allowed. You can find your rate limits in your
                        OpenAI account at https://platform.openai.com/account/rate-limits
-            redis_host (str, optional): The hostname of the Redis server. Defaults to "localhost".
-            redis_port (int, optional): The port number of the Redis server. Defaults to 6379.
+            redis_url (str, optional): URL of Redis server. Defaults to "redis://localhost:6379".
 
         Creates an instance of the BaseAPILimiterRedis with the specified parameters, and connects to a Redis server
         at the specified host and port.
@@ -98,7 +96,7 @@ class AsyncBaseAPILimiterRedis:
         self.max_calls = RPM
         self.max_tokens = TPM
         self.period = period
-        self.redis: "redis.Redis[bytes]" = redis.Redis(host=redis_host, port=redis_port)
+        self.redis: "redis.Redis[bytes]" = redis.from_url(redis_url)
 
     async def check_redis(
         self,

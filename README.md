@@ -48,8 +48,7 @@ chatlimiter = ChatCompletionLimiter(
     model_name=model_name,
     RPM=3_000,
     TPM=250_000,
-    redis_host="localhost",
-    redis_port=6379,
+    redis_url="redis://localhost:6379",
 )
 with chatlimiter.limit(messages=messages, max_tokens=max_tokens):
     response = openai.ChatCompletion.create(
@@ -72,8 +71,7 @@ textlimiter = TextCompletionLimiter(
     model_name=model_name,
     RPM=3_000,
     TPM=250_000,
-    redis_host="localhost",
-    redis_port=6379,
+    redis_url="redis://localhost:6379",
 )
 with textlimiter.limit(prompt=prompt, max_tokens=max_tokens):
     response = openai.Completion.create(
@@ -100,8 +98,7 @@ limiter = AsyncChatCompletionLimiter(
         model_name=model_name,
         RPM=3_000,  
         TPM=180_000,  
-        redis_host="localhost",
-        redis_port=6379,
+        redis_url="redis://localhost:6379",
     )
 success = limiter.clear_locks()
 ```
@@ -119,8 +116,7 @@ limiter = AsyncChatCompletionLimiter(
         model_name=model_name,
         RPM=3_000,  
         TPM=180_000,  
-        redis_host="localhost",
-        redis_port=6379,
+        redis_url="redis://localhost:6379",
     )
 messages = [{"role": "system", "content": "You are a helpful assistant."}]
 max_tokens = 200
@@ -160,8 +156,7 @@ chatlimiter = AsyncChatCompletionLimiter(
     model_name=model_name,
     RPM=3_500,
     TPM=180_000,
-    redis_host="localhost",
-    redis_port=6379,
+    redis_url="redis://localhost:6379",
 )
 
 async def send_request():
@@ -195,8 +190,7 @@ textlimiter = AsyncTextCompletionLimiter(
     model_name=model_name,
     RPM=3_500,
     TPM=180_000,
-    redis_host="localhost",
-    redis_port=6379,
+    redis_url="redis://localhost:6379",
 )
 
 async def send_request(_):
